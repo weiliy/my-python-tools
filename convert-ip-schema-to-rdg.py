@@ -1,4 +1,4 @@
-#!/bin/env python 
+#!/usr/bin/env python 
 
 import os
 import argparse
@@ -73,6 +73,10 @@ def read_server_from_book(book, sheet_pat, name_pat):
 
 # Main
 books= []
+servers = []
+sheet_pat = re.compile(args.sheet)
+name_pat = re.compile(args.filter)
+
 if os.path.isfile(args.ipschema):
 	books.append(xlrd.open_workbook(args.ipschema))
 elif os.path.isdir(args.ipschema):
@@ -85,12 +89,9 @@ elif os.path.isdir(args.ipschema):
 			print 'failed'
 			continue
 		print 'OK'
-
-		
-
-sheet_pat = re.compile(args.sheet)
-name_pat = re.compile(args.filter)
-servers = []
+else:
+	print 'Not file or directory:', args.ipschema
+	exit()
 
 for book in books:
 	print
